@@ -15,3 +15,17 @@ def index(request):
 def show(request,id,id2):
     context={'id':id,'id2':id2}
     return render(request,'booktest/show.html',context)
+# 用于模板的继承
+def index2(request):
+    return render(request,'booktest/index2.html')
+
+def user1(request):
+    context={'uname':'张三'}
+    return render(request,'booktest/user1.html',context)
+def user2(request):
+    return render(request,'booktest/user2.html')
+
+# 用于html的转义
+def htmlTest(request):
+    context={'t1':'<h1>123</h1>','t2':'<h1>456</h1>'}
+    return render(request,'booktest/htmlTest.html',context)

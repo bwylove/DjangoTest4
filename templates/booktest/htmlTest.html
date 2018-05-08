@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{#safe转义#}
+{#也可以#}
+{{ t1 }}
+<hr>
+{{ t1|safe }}
+<hr>
+{% autoescape on%}
+{{ t2 }}
+{% endautoescape %}
+<hr>
+{% autoescape off%}
+{{ t2 }}
+{% endautoescape %}
+<hr>
+字面值：<br>
+{{ t3|default:'<h1>sade</h1>' }}
+手动转义：<br>
+{{ t3|default:'&lt;h1&gtsade&lt;/h1&gt' }}
+</body>
+</html>
