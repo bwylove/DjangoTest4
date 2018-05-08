@@ -6,5 +6,15 @@
 </head>
 <body>
 {{ hero.showname }}
+<hr>
+<ul>
+{% for hero in list %}
+{#    当前循环到第几次forloop.counter#}
+<li>{{ forloop.counter }}:{{ hero.showname }}</li>
+{#在没有数据时执行#}
+{% empty %}
+    <li>啥也没有</li>
+{% endfor %}
+</ul>
 </body>
 </html>
