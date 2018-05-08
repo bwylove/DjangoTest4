@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
+from django.http import HttpResponse
 from models import *
 # Create your views here.
 def index(request):
@@ -29,3 +30,10 @@ def user2(request):
 def htmlTest(request):
     context={'t1':'<h1>123</h1>','t2':'<h1>456</h1>'}
     return render(request,'booktest/htmlTest.html',context)
+
+# 用于Cross Site Request Forgery，跨站请求伪造csrf
+def csrf1(request):
+    return render(request,'booktest/csrf1.html')
+def csrf2(request):
+    uname=request.POST['uname']
+    return HttpResponse(uname)
