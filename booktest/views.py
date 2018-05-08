@@ -10,3 +10,8 @@ def index(request):
     list=HeroInfo.objects.filter(isDetele=False)
     context={"list":list}
     return render(request,'booktest/index.html',context)
+
+
+def show(request,id,id2):
+    context={'id':id,'id2':id2}
+    return render(request,'booktest/show.html',context)
