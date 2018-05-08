@@ -37,3 +37,52 @@ def csrf1(request):
 def csrf2(request):
     uname=request.POST['uname']
     return HttpResponse(uname)
+
+
+
+# 验证码
+def verifyCode(request):
+    from PIL import Image,ImageDraw,ImageFont
+    import random
+    # 创建背景色
+    bgColor=(random.randrange(50,100),random.randrange(50,100),0)
+    # 规定宽高
+    width=100
+    height=25
+    # 创建画布
+    image=Image.new('RGB',(width,height),bgColor)
+    # 构造字体对象
+    font=ImageFont.truetype('COOPBL.TTF',24)
+    # 创建画笔
+    draw=ImageDraw.Draw(image)
+    # 创建文本内容
+    text='0123ABCD'
+    # 逐个绘制字符
+    textTemp=''
+    for i in range(4):
+        textTemp1=text[random.randrange(0,len(text))]
+        textTemp+=textTemp1
+        draw.text((i*25,0),
+                  textTemp1,
+                  (255,255,255),
+                font)
+    # draw.text((0,0),text,(255,255,255),font)
+    request.session['code']=textTemp
+    # 保存到内存中
+    import cStringIO
+    buf=cStringIO.StringIO()
+    image.save(buf,'png')
+    # 将内存中的输出到客户端
+    return HttpResponse(buf.getvalue(),'image/png')
+
+def verifyTest1(request):
+    return render(request,'booktest/verifyTest1.html')
+
+
+def verifyTest2(request):
+    code1=request.POST['code1']
+    code2=request.session['code']
+    if code1==code2:
+        return HttpResponse('OK')
+    else:
+        return HttpResponse('NO')
